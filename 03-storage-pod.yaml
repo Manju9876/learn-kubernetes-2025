@@ -16,5 +16,5 @@ spec:
           name: html
   volumes:
     - name: html
-      emptydir: ()
+      emptydir: {}
 
