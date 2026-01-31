@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: nginx
-      image: nginx:1.14.2
+      image: nginx
     - name: debug
       image: docker.io/rkalluru/learnk8s:rhel9-bare
 
