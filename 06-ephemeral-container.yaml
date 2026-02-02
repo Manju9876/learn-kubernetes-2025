@@ -1,0 +1,4 @@
+# assume we have a pod - init-container
+# and to creaet a ephemeral container
+# kubectl debug -it --attach=true -c debugger --image=docker.io/redhat/ubi9 init-container-pod
+# get into teh pod and start debuging.
