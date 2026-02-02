@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: storage-demo-pod
+  name: init-container-pod
 spec:
   initContainers:
   - name: debug
