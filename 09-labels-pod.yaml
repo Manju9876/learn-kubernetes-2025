@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sidecar-demo
+  name: lebels-demo
   labels:
     app: nginx
     env: dev
