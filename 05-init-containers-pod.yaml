@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: storage-demo-pod
+spec:
+  initContainers:
+  - name: debug
+    image: docker.io/rkalluru/learnk8s:init-container-html-generator
+    volumeMounts:
+      - mountPath: /mnt/html
+        name: html
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: html
+  volumes:
+    - name: html
+      emptyDir: {}
