@@ -24,3 +24,8 @@ spec:
             configMapKeyRef:
               name: game-demo
               key: player_initial_lives
+        - name: DEMO_GREETING
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: ui_properties_file_name
