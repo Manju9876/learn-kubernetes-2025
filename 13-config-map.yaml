@@ -43,4 +43,4 @@ spec:
       image: docker.io/rkalluru/learnk8s:rhel9-bare
       envFrom:
         - configMapRef:
-           name: myconfigmap
+           name: game-demo
