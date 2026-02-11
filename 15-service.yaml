@@ -32,7 +32,7 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: debug
+  name: nginx-np
   namespace: sample-namespace
 spec:
   type: NodePort
