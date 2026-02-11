@@ -36,9 +36,8 @@ metadata:
   namespace: sample-namespace
 spec:
   type: NodePort
-  containers:
-    - name: debug
-      image: docker.io/rkalluru/learnk8s:rhel9-bare
+  selector:
+    appName: nginx
 
 
 
