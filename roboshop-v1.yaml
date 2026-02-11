@@ -105,7 +105,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: catalogue
+  name: cart
 data:
   CATALOGUE_HOST: "catalogue-dev.devopsbymanju.shop"
   CATALOGUE_PORT: "8080"
