@@ -22,6 +22,11 @@ spec:
       targetPort: 80  # nginx pod port
 
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample-namespace
+---
 # trying to access the nginx through service culster ip
 
 apiVersion: v1
@@ -34,10 +39,6 @@ spec:
     - name: debug
       image: docker.io/rkalluru/learnk8s:rhel9-bare
 
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: sample-namespace
+
 
 
