@@ -38,6 +38,10 @@ spec:
   type: NodePort
   selector:
     appName: nginx
+  ports:
+    - port: 80 # service port
+      targetPort: 80  # nginx pod port
+
 
 
 
