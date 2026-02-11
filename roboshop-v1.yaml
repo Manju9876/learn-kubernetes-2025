@@ -101,6 +101,38 @@ spec:
             - configMapRef:
                 name: user
 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue
+data:
+  CATALOGUE_HOST: "catalogue-dev.devopsbymanju.shop"
+  CATALOGUE_PORT: "8080"
+  REDIS_HOST: "redis-dev.devopsbymanju.shop"
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: cart
+  template:
+    metadata:
+      labels:
+        component: cart
+    spec:
+      containers:
+        - name: catalogue
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+          envFrom:
+            - configMapRef:
+                name: cart
 
 
 
