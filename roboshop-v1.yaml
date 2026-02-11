@@ -101,7 +101,105 @@ spec:
             - configMapRef:
                 name: user
 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cart
+data:
+  CATALOGUE_HOST: "catalogue-dev.devopsbymanju.shop"
+  CATALOGUE_PORT: "8080"
+  REDIS_HOST: "redis-dev.devopsbymanju.shop"
 
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: cart
+  template:
+    metadata:
+      labels:
+        component: cart
+    spec:
+      containers:
+        - name: catalogue
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+          envFrom:
+            - configMapRef:
+                name: cart
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shipping
+data:
+  CART_ENDPOINT: "cart-dev.devopsbymanju.shop"
+  DB_HOST: "mysql-dev.devopsbymanju.shop"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: shipping
+  template:
+    metadata:
+      labels:
+        component: shipping
+    spec:
+      containers:
+        - name: shipping
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping
+          envFrom:
+            - configMapRef:
+                name: shipping
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment
+data:
+  CART_HOST: "cart-dev.devopsbymanju.shop"
+  CART_PORT: "8080"
+  USER_HOST: "user-dev.devopsbymanju.shop"
+  USER_PORT: "8080"
+  AMQP_HOST: "rabbitmq-dev.devopsbymanju.shop"
+  AMQP_USER: "roboshop"
+  AMQP_PASS: "roboshop123"
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: payment
+  template:
+    metadata:
+      labels:
+        component: payment
+    spec:
+      containers:
+        - name: payment
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/payment
+          envFrom:
+            - configMapRef:
+                name: payment
 
 
 
