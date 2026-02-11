@@ -30,7 +30,7 @@ metadata:
 # trying to access the nginx through service culster ip
 
 apiVersion: v1
-kind: Pod
+kind: Service
 metadata:
   name: debug
   namespace: sample-namespace
