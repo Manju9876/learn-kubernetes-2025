@@ -42,6 +42,8 @@ spec:
       targetPort: 80  # nginx pod port
 
 ---
+#load balencer type of service
+
 apiVersion: v1
 kind: Service
 metadata:
