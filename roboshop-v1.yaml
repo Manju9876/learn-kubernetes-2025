@@ -84,7 +84,7 @@ spec:
     - port: 80 # service port
       targetPort: 80  # nginx pod port
 
-
+---
 #apiVersion: v1
 #kind: ConfigMap
 #metadata:
