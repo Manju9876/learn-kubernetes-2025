@@ -3,16 +3,16 @@ kind: ConfigMap
 metadata:
   name: frontend
 data:
-  CATALOGUE_HOST: "localhost"
+  CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
-  USER_HOST: "localhost"
-  USER_PORT: "8080"
-  CART_HOST: "localhost"
-  CART_PORT: "8080"
-  SHIPPING_HOST: "localhost"
-  SHIPPING_PORT: "8080"
-  PAYMENT_HOST: "localhost"
-  PAYMENT_PORT: "8080"
+#  USER_HOST: "localhost"
+#  USER_PORT: "8080"
+#  CART_HOST: "localhost"
+#  CART_PORT: "8080"
+#  SHIPPING_HOST: "localhost"
+#  SHIPPING_PORT: "8080"
+#  PAYMENT_HOST: "localhost"
+#  PAYMENT_PORT: "8080"
 
 
 ---
@@ -21,6 +21,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  labels:
+    component: frontend
 spec:
   replicas: 1
   selector:
@@ -71,135 +73,146 @@ spec:
 
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Service
 metadata:
-  name: user
-data:
-  MONGO: "true"
-  MONGO_URL: "mongodb-dev.devopsbymanju.shop:27017/catalogue"
-  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: user
+  name: frontend
 spec:
-  replicas: 1
+  type: LoadBalancer
   selector:
-    matchLabels:
-      component: user
-  template:
-    metadata:
-      labels:
-        component: user
-    spec:
-      containers:
-        - name: user
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
-          envFrom:
-            - configMapRef:
-                name: user
+    component: frontend
+  ports:
+    - port: 80 # service port
+      targetPort: 80  # nginx pod port
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: user
+#data:
+#  MONGO: "true"
+#  MONGO_URL: "mongodb-dev.devopsbymanju.shop:27017/catalogue"
+#  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: user
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      component: user
+#  template:
+#    metadata:
+#      labels:
+#        component: user
+#    spec:
+#      containers:
+#        - name: user
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+#          envFrom:
+#            - configMapRef:
+#                name: user
 
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cart
-data:
-  CATALOGUE_HOST: "catalogue-dev.devopsbymanju.shop"
-  CATALOGUE_PORT: "8080"
-  REDIS_HOST: "redis-dev.devopsbymanju.shop"
+#---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: cart
+#data:
+#  CATALOGUE_HOST: "catalogue-dev.devopsbymanju.shop"
+#  CATALOGUE_PORT: "8080"
+#  REDIS_HOST: "redis-dev.devopsbymanju.shop"
+#
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: cart
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      component: cart
+#  template:
+#    metadata:
+#      labels:
+#        component: cart
+#    spec:
+#      containers:
+#        - name: catalogue
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+#          envFrom:
+#            - configMapRef:
+#                name: cart
+#---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: shipping
+#data:
+#  CART_ENDPOINT: "cart-dev.devopsbymanju.shop"
+#  DB_HOST: "mysql-dev.devopsbymanju.shop"
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: shipping
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      component: shipping
+#  template:
+#    metadata:
+#      labels:
+#        component: shipping
+#    spec:
+#      containers:
+#        - name: shipping
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping
+#          envFrom:
+#            - configMapRef:
+#                name: shipping
+#
+#---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: payment
+#data:
+#  CART_HOST: "cart-dev.devopsbymanju.shop"
+#  CART_PORT: "8080"
+#  USER_HOST: "user-dev.devopsbymanju.shop"
+#  USER_PORT: "8080"
+#  AMQP_HOST: "rabbitmq-dev.devopsbymanju.shop"
+#  AMQP_USER: "roboshop"
+#  AMQP_PASS: "roboshop123"
 
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: cart
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: cart
-  template:
-    metadata:
-      labels:
-        component: cart
-    spec:
-      containers:
-        - name: catalogue
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
-          envFrom:
-            - configMapRef:
-                name: cart
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: shipping
-data:
-  CART_ENDPOINT: "cart-dev.devopsbymanju.shop"
-  DB_HOST: "mysql-dev.devopsbymanju.shop"
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: shipping
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: shipping
-  template:
-    metadata:
-      labels:
-        component: shipping
-    spec:
-      containers:
-        - name: shipping
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping
-          envFrom:
-            - configMapRef:
-                name: shipping
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: payment
-data:
-  CART_HOST: "cart-dev.devopsbymanju.shop"
-  CART_PORT: "8080"
-  USER_HOST: "user-dev.devopsbymanju.shop"
-  USER_PORT: "8080"
-  AMQP_HOST: "rabbitmq-dev.devopsbymanju.shop"
-  AMQP_USER: "roboshop"
-  AMQP_PASS: "roboshop123"
-
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: payment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: payment
-  template:
-    metadata:
-      labels:
-        component: payment
-    spec:
-      containers:
-        - name: payment
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/payment
-          envFrom:
-            - configMapRef:
-                name: payment
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: payment
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      component: payment
+#  template:
+#    metadata:
+#      labels:
+#        component: payment
+#    spec:
+#      containers:
+#        - name: payment
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/payment
+#          envFrom:
+#            - configMapRef:
+#                name: payment
 
 
 
