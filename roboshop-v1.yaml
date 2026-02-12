@@ -111,13 +111,13 @@ spec:
           image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
           env:
             - name: DB_TYPE
-              value: "mongo"
+              value: mongo
             - name: APP_GIT_URL
-              value: "https://github.com/roboshop-devops-project-v3/catalogue"
+              value: https://github.com/roboshop-devops-project-v3/catalogue
             - name: DB_HOST
-              value: "mongodb-dev.devopsbymanju.shop"
+              value: mongodb-dev.devopsbymanju.shop
             - name: SCHEMA_FILE
-              value: "db/master-data.js"
+              value: db/master-data.js
       restartPolicy: Never
   backoffLimit: 4
 
