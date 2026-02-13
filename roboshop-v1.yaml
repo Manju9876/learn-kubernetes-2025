@@ -47,7 +47,7 @@ metadata:
   name: catalogue
 data:
   MONGO: "true"
-  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017"
+  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017/catalogue"
 
 ---
 apiVersion: apps/v1
