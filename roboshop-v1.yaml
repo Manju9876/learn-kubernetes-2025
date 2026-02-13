@@ -39,6 +39,18 @@ spec:
           envFrom:
             - configMapRef:
                 name: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    component: frontend
+  ports:
+    - port: 80 # service port
+      targetPort: 80  # nginx pod port
 
 ---
 apiVersion: v1
@@ -73,18 +85,6 @@ spec:
             - configMapRef:
                 name: catalogue
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend
-spec:
-  type: LoadBalancer
-  selector:
-    component: frontend
-  ports:
-    - port: 80 # service port
-      targetPort: 80  # nginx pod port
 
 ---
 apiVersion: v1
@@ -151,7 +151,18 @@ spec:
           envFrom:
             - configMapRef:
                 name: user
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  type: ClusterIP
+  selector:
+    component: user
+  ports:
+    - port: 8080 # service port
+      targetPort: 8080  # nginx pod port
 ---
 #apiVersion: v1
 #kind: ConfigMap
