@@ -120,50 +120,50 @@ spec:
               value: db/master-data.js
       restartPolicy: Never
   backoffLimit: 4
-#---
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: user
-#data:
-#  MONGO: "true"
-#  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017/users"
-#  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: user
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: user
-#  template:
-#    metadata:
-#      labels:
-#        component: user
-#    spec:
-#      containers:
-#        - name: user
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
-#          envFrom:
-#            - configMapRef:
-#                name: user
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: user
-#spec:
-#  type: ClusterIP
-#  selector:
-#    component: user
-#  ports:
-#    - port: 8080 # service port
-#      targetPort: 8080  # nginx pod port
-#---
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017/users"
+  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: user
+  template:
+    metadata:
+      labels:
+        component: user
+    spec:
+      containers:
+        - name: user
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+          envFrom:
+            - configMapRef:
+                name: user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  type: ClusterIP
+  selector:
+    component: user
+  ports:
+    - port: 8080 # service port
+      targetPort: 8080  # nginx pod port
+---
 #apiVersion: v1
 #kind: ConfigMap
 #metadata:
