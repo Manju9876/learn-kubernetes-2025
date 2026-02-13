@@ -5,7 +5,7 @@ metadata:
 data:
   CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
-  USER_HOST: "localhost"
+  USER_HOST: "user"
   USER_PORT: "8080"
   CART_HOST: "localhost"
   CART_PORT: "8080"
@@ -120,39 +120,39 @@ spec:
               value: db/master-data.js
       restartPolicy: Never
   backoffLimit: 4
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017/users"
+  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
 
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: user
-#data:
-#  MONGO: "true"
-#  MONGO_URL: "mongodb-dev.devopsbymanju.shop:27017/catalogue"
-#  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: user
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: user
-#  template:
-#    metadata:
-#      labels:
-#        component: user
-#    spec:
-#      containers:
-#        - name: user
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
-#          envFrom:
-#            - configMapRef:
-#                name: user
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: user
+  template:
+    metadata:
+      labels:
+        component: user
+    spec:
+      containers:
+        - name: user
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+          envFrom:
+            - configMapRef:
+                name: user
 
-#---
+---
 #apiVersion: v1
 #kind: ConfigMap
 #metadata:
