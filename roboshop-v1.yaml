@@ -5,7 +5,7 @@ metadata:
 data:
   CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
-  USER_HOST: "localhost"
+  USER_HOST: "user"
   USER_PORT: "8080"
   CART_HOST: "localhost"
   CART_PORT: "8080"
