@@ -1,19 +1,19 @@
-#HPA
+#VPA
 #when cpu >70%
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hpa-demo
+  name: vpa-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hpa-demo
+      app: vpa-demo
   template:
     metadata:
       labels:
-        app: hpa-demo
+        app: vpa-demo
     spec:
       containers:
         - name: nginx
@@ -27,35 +27,15 @@ spec:
               memory: "512Mi"
 ---
 
-apiVersion: v1
-kind: Service
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
 metadata:
-  name: hpa-demo
+  name: vpa-demo
 spec:
-  selector:
-    app: hpa-demo
-  ports:
-    - port: 80
-      targetPort: 80
-
-
----
-
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: hpa-demo
-spec:
-  scaleTargetRef:
+  targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: hpa-demo
-  minReplicas: 1
-  maxReplicas: 5
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 40
+    name: vpa-demo
+  updatePolicy:
+    updateMode: "Auto"
+
