@@ -15,9 +15,6 @@ spec:
       containers:
         - name: cpu-stress
           image: polinux/stress
-          args:
-            - "--cpu"
-            - "1"
           resources:
             requests:
               cpu: "200m"
