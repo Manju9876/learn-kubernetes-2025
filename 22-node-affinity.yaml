@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-required-during-schedule
+  name: affinity-required-demo
 spec:
   affinity:
     nodeAffinity:
@@ -16,3 +16,4 @@ spec:
     - name: nginx
       image: nginx
 
+---
