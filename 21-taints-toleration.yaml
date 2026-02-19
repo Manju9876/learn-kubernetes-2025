@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-tolerated
+  name: pod-tolerated-env
 spec:
   containers:
     - name: nginx
       image: nginx
   tolerations:
-    - key: "project"
+    - key: "env"
       operator: "Equal"
-      value: "roboshop"
+      value: "dev"
       effect: "NoSchedule"
 
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-tolerated-backend
-spec:
-  containers:
-    - name: nginx
-      image: nginx
-  tolerations:
-    - key: "project"
-      operator: "Equal"
-      value: "backend"
-      effect: "NoSchedule"
+#---
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: pod-tolerated-backend
+#spec:
+#  containers:
+#    - name: nginx
+#      image: nginx
+#  tolerations:
+#    - key: "project"
+#      operator: "Equal"
+#      value: "backend"
+#      effect: "NoSchedule"
