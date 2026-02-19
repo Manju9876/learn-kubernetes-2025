@@ -17,3 +17,21 @@ spec:
       image: nginx
 
 ---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: affinity-preferred-demo
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: env
+                operator: In
+                values:
+                  - prod
