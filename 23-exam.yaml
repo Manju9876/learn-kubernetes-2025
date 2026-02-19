@@ -1,19 +1,2 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: preferred-pod
-spec:
-  containers:
-    - name: nginx
-      image: nginx:1.14.2
-  affinity:
-   nodeAffinity:
-     PreferredDuringSchedulingIgnoredDuringExecution:
-       nodeSelectorTerms:
-         - matchExpressions:
-             - key: env
-               operator: In
-               values:
-                 - prod
 
 
