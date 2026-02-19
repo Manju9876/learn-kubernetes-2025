@@ -12,15 +12,15 @@ spec:
       value: "dev"
       effect: "NoSchedule"
 
-#---
-#apiVersion: v1
-#kind: Pod
-#metadata:
-#  name: pod-tolerated-backend
-#spec:
-#  containers:
-#    - name: nginx
-#      image: nginx
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-not-tolerated
+spec:
+  containers:
+    - name: nginx
+      image: nginx
 #  tolerations:
 #    - key: "project"
 #      operator: "Equal"
