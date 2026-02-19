@@ -1,10 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx
+  name: pod-tolerated
 spec:
-  nodeSelector:
-    env: prod
   containers:
     - name: nginx
-      image: nginx:1.14.2
+      image: nginx
+  tolerations:
+    - key: "project"
+      operator: "Equal"
+      value: "roboshop"
+      effect: "NoSchedule"
+
