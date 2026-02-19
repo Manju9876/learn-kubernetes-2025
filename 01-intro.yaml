@@ -18,6 +18,8 @@ metadata:
   labels:
     app: nginx_app
 spec:
+  nodeSelector:
+    env: dev
   containers:
     - name: nginx-container
       image: nginx:latest
