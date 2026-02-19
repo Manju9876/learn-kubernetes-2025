@@ -40,4 +40,9 @@ spec:
                 operator: In
                 values:
                   - prod
+  tolerations:
+    - key: "env"
+      operator: "Equal"
+      value: "dev"
+      effect: "NoSchedule"
 
