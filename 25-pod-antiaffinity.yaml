@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod
+  labels:
+    app: web
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+---
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
