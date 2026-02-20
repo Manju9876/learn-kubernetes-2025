@@ -13,3 +13,19 @@ metadata:
 value: 10000
 globalDefault: false
 description: "High priority pods"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: low-pod
+spec:
+  priorityClassName: low-priority
+  containers:
+    - name: nginx
+      image: nginx
+      resources:
+        requests:
+          cpu: "2"
+        limits:
+          cpu: "2"
