@@ -20,7 +20,7 @@ spec:
     spec:
       topologySpreadConstraints:
         - maxSkew: 1
-          topologyKey: kubernetes.io/zone
+          topologyKey: topology.kubernetes.io/zone
           whenUnsatisfiable: DoNotSchedule
       containers:
         - name: nginx
