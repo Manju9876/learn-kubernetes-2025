@@ -17,16 +17,16 @@ spec:
     - name: nginx
       image: nginx
 ---
-#apiVersion: v1
-#kind: pod
-#metadata:
-#  name: catalogue
-#  labels:
-#    app: catalogue
-#spec:
-#  containers:
-#    - name: nginx
-#      image: nginx:latest
+apiVersion: v1
+kind: pod
+metadata:
+  name: catalogue
+  labels:
+    app: catalogue
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
 #---
 #apiVersion: v1
 #kind: Pod
