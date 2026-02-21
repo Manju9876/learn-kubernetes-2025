@@ -20,12 +20,8 @@ spec:
     spec:
       topologySpreadConstraints:
         - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
+          topologyKey: kubernetes.io/zone
           whenUnsatisfiable: DoNotSchedule
-          labelSelector: <object>
-          matchLabelKeys: <list> # optional; beta since v1.27
-          nodeAffinityPolicy: [ Honor|Ignore ] # optional; beta since v1.26
-          nodeTaintsPolicy: [ Honor|Ignore ] # optional; beta since v1.26
       containers:
         - name: nginx
           image: nginx:1.26
