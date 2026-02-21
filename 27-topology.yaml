@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-rs
+  labels:
+    app: nginx
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector: <object>
+          matchLabelKeys: <list> # optional; beta since v1.27
+          nodeAffinityPolicy: [ Honor|Ignore ] # optional; beta since v1.26
+          nodeTaintsPolicy: [ Honor|Ignore ] # optional; beta since v1.26
+      containers:
+        - name: nginx
+          image: nginx:1.26
