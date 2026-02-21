@@ -13,10 +13,10 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
+#  template:
+#    metadata:
+#      labels:
+#        app: nginx
     spec:
       topologySpreadConstraints:
         - maxSkew: 1
