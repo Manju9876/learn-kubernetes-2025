@@ -29,3 +29,18 @@ spec:
           cpu: "1000m"
         limits:
           cpu: "1000m"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: high-pod
+spec:
+  priorityClassName: high-priority
+  containers:
+    - name: nginx
+      image: nginx
+      resources:
+        requests:
+          cpu: "2000m"
+        limits:
+          cpu: "2000m"
