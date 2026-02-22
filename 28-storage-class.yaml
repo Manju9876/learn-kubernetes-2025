@@ -2,10 +2,10 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   creationTimestamp: "2026-02-22T06:20:33Z"
-  name: gp3
+  name: gp2
 parameters:
   fsType: xfs
-  type: gp3
+  type: gp2
 provisioner: kubernetes.io/aws-ebs
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
@@ -15,7 +15,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: claim1
 spec:
-  storageClassName: gp3
+  storageClassName: gp2
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
