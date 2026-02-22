@@ -15,7 +15,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: claim1
 spec:
-  storageClassName: gp2
+  storageClassName: gp3
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
