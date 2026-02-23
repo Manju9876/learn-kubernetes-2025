@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { .Values.component } }
+  name: {{ .Values.component }}
   labels:
-    component: { { .Values.component } }
+    component: {{ .Values.component }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: { { .Values.component } }
+      component: {{ .Values.component }}
   template:
     metadata:
       labels:
-        component: { { .Values.component } }
+        component: {{ .Values.component }}
     spec:
       containers:
-        - name: { { .Values.component } }
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/{ { .Values.component } }
+        - name: {{ .Values.component }}
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/{{ .Values.component }}
           envFrom:
             - configMapRef:
-                name: { { .Values.component } }
+                name: {{ .Values.component }}
