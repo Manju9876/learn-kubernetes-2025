@@ -1,8 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: helm-pod
+  name: { { .Values.component } }
+  labels:
+    component: { { .Values.component } }
 spec:
-  containers:
-    - name: nginx
-      image: nginx:1.14.2
+  replicas: 1
+  selector:
+    matchLabels:
+      component: { { .Values.component } }
+  template:
+    metadata:
+      labels:
+        component: { { .Values.component } }
+    spec:
+      containers:
+        - name: { { .Values.component } }
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/{ { .Values.component } }
+          envFrom:
+            - configMapRef:
+                name: { { .Values.component } }
