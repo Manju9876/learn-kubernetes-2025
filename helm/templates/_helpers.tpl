@@ -1,5 +1,4 @@
 {{- define "mychart.labels" -}}
- label:
-  app: {{ .Values.Component }}
+  app: {{ .Values.component }}
   project: roboshop
 {{- end }}
