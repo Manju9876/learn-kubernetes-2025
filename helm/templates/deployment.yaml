@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.component }}
   labels:
-    component: {{ .Values.component }}
+    {{- include "mychart.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
