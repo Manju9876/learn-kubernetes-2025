@@ -1,6 +1,27 @@
 i am installing this below pod
 
 ----
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.component }}
+  labels:
+    {{- include "mychart.labels" . | nindent 2 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: {{ .Values.component }}
+  template:
+    metadata:
+      labels:
+        component: {{ .Values.component }}
+    spec:
+      containers:
+        - name: {{ .Values.component }}
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/{{ .Values.component }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.component }}
 
 ----
