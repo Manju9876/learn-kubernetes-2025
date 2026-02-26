@@ -10,5 +10,5 @@ data:
   my_file_name: {{ .Template.Name }}
   value_x: {{ .Values.x }}
   env: {{ .Values.env }}
-  drink: {{ .Values.favorite.drink | default (printf "%s-tea" (include "fullname" .)) }}
+  drink: {{ (default dict .Values.favorite).drink | default (printf "%s-tea" (include "fullname" .)) }}
 
