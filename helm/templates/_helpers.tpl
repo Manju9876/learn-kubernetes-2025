@@ -4,6 +4,6 @@ project: roboshop
 {{- end }}
 
 {{- define "fullname" -}}
-name: manju
+manju
 {{- end }}
 
