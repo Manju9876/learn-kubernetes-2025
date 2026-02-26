@@ -7,5 +7,5 @@ data:
   chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
   file: {{ .Files.Get "simple.txt" }}
   kube_version: {{ .Capabilities.KubeVersion.Major }}
-  my_file_name: {{ Template.Name }}
+  my_file_name: {{ .Template.Name }}
 
