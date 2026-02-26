@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: game-demo
 data:
-  release_name: {{ .Release.name }}
+  release_name: {{ .Release.Name }}
   chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
 
