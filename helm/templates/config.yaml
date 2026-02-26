@@ -9,4 +9,5 @@ data:
   kube_version: {{ .Capabilities.KubeVersion.Major }}
   my_file_name: {{ .Template.Name }}
   value_x: {{ .Values.x }}
+  env:
 
