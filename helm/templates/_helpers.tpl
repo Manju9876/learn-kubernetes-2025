@@ -2,6 +2,6 @@
 app: {{ .Values.component }}
 project: roboshop
 {{- end }}
-{{- define "demo.labels" -}}
+{{- define "fullname.labels" -}}
 name: manju
 {{- end }}
