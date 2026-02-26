@@ -1,11 +1,4 @@
 i am installing this below pod
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: game-demo
-data:
-  release_name: {{ .Release.name }}
-  chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
 
 
