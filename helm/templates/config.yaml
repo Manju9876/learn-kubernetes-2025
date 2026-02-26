@@ -5,6 +5,7 @@ metadata:
 data:
   release_name: {{ .Release.Name }}
   chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
-#  file: {{ .Files.Get "simple.txt" }}
+  file: {{ .Files.Get "simple.txt" }}
   kube_version: {{ .Capabilities.KubeVersion.Major }}
+  my_file_name: {{ Template.Name }}
 
