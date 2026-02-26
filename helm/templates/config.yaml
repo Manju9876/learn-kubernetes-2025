@@ -5,5 +5,5 @@ metadata:
 data:
   release_name: {{ .Release.Name }}
   chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
-  file: {{ .Files.AsSecrets simple.txt }}
+  file: {{ .Files.Get "simple.txt" }}
 
