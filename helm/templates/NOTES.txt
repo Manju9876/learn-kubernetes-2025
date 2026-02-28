@@ -24,5 +24,5 @@ data:
       value: {{ $value }}
     {{- end }}
   testing: {{ range $index, $service := (lookup "v1" "ConfigMap" "default" "").items }}
-            {{ . }}
+            - {{ $service.metadata.name }}
           {{- end }}
