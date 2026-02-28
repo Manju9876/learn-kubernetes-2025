@@ -20,7 +20,7 @@ data:
       value: {{ $value }}
     {{- end }}
   testing: |
-    {{ range $index, $service := (lookup "v1" "Namespace" "" "default").items }}
+    {{ range $index, $service := (lookup "v1" "Service" "" "").items }}
     {{ . }}
     {{- end }}
 
