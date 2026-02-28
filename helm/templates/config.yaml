@@ -14,5 +14,10 @@ data:
   looping: {{- range .Values.fruits }}
    -{{ . }}
            {{- end }}
+  game: | 
+    {{- range $key, $value := .Values.game }}
+    - name: $key
+    $value: {{ $value }}
+    {{- end }}
 
 
