@@ -3,3 +3,7 @@ x: 100
 env: UNKNOWN
 #favorite:
 #  drink: coffee
+fruits:
+  - mango
+  - apple
+  - banana
