@@ -3,22 +3,22 @@ kind: ConfigMap
 metadata:
   name: game-demo
 data:
-  release_name: {{ .Release.Name }}
-  chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
-  file: {{ .Files.Get "simple.txt" }}
-  kube_version: {{ .Capabilities.KubeVersion.Major }}
-  my_file_name: {{ .Template.Name }}
-  value_x: {{ .Values.x }}
-  env: {{ .Values.env }}
-  drink: {{ (default dict .Values.favorite).drink | default (printf "%s-tea" (include "fullname" .)) }}
-  looping: {{- range .Values.fruits }}
-   -{{ . }}
-           {{- end }}
-  game: | 
-    {{- range $key, $value := .Values.game }}
-    - name: {{ $key }}
-      value: {{ $value }}
-    {{- end }}
+#  release_name: {{ .Release.Name }}
+#  chart_name_version: {{ .Chart.Name }}-{{ .Chart.Version }}
+#  file: {{ .Files.Get "simple.txt" }}
+#  kube_version: {{ .Capabilities.KubeVersion.Major }}
+#  my_file_name: {{ .Template.Name }}
+#  value_x: {{ .Values.x }}
+#  env: {{ .Values.env }}
+#  drink: {{ (default dict .Values.favorite).drink | default (printf "%s-tea" (include "fullname" .)) }}
+#  looping: {{- range .Values.fruits }}
+#   -{{ . }}
+#           {{- end }}
+#  game: |
+#    {{- range $key, $value := .Values.game }}
+#    - name: {{ $key }}
+#      value: {{ $value }}
+#    {{- end }}
   testing: {{ range $index, $service := (lookup "v1" "ConfigMap" "default" "").items }}
             {{ . }}
           {{- end }}
