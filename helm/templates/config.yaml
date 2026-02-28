@@ -16,7 +16,7 @@ data:
            {{- end }}
   game: | 
     {{- range $key, $value := .Values.game }}
-    - name: $key
+    - name: {{ $key }}
     $value: {{ $value }}
     {{- end }}
 
