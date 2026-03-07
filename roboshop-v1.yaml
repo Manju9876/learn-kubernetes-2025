@@ -262,10 +262,89 @@ spec:
 #          envFrom:
 #            - configMapRef:
 #                name: payment
-
-
-
-
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: shipping-app-user
+#spec:
+#  template:
+#    spec:
+#      containers:
+#        - name: app-user
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+#          env:
+#            - name: DB_TYPE
+#              value: mysql
+#            - name: APP_GIT_URL
+#              value: https://github.com/roboshop-devops-project-v3/shipping
+#            - name: DB_HOST
+#              value: mysql-dev.rdevopsb83.online
+#            - name: SCHEMA_FILE
+#              value: db/app-user.sql
+#            - name: DB_USER
+#              value: root
+#            - name: DB_PASS
+#              value: RoboShop@1
+#      restartPolicy: Never
+#  backoffLimit: 4
+#
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: shipping-schema-load
+#spec:
+#  template:
+#    spec:
+#      containers:
+#        - name: schema-load
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+#          env:
+#            - name: DB_TYPE
+#              value: mysql
+#            - name: APP_GIT_URL
+#              value: https://github.com/roboshop-devops-project-v3/shipping
+#            - name: DB_HOST
+#              value: mysql-dev.rdevopsb83.online
+#            - name: SCHEMA_FILE
+#              value: db/schema.sql
+#            - name: DB_USER
+#              value: root
+#            - name: DB_PASS
+#              value: RoboShop@1
+#      restartPolicy: Never
+#  backoffLimit: 4
+#
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: shipping-master-data
+#spec:
+#  template:
+#    spec:
+#      containers:
+#        - name: master-data
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+#          env:
+#            - name: DB_TYPE
+#              value: mysql
+#            - name: APP_GIT_URL
+#              value: https://github.com/roboshop-devops-project-v3/shipping
+#            - name: DB_HOST
+#              value: mysql-dev.rdevopsb83.online
+#            - name: SCHEMA_FILE
+#              value: db/master-data.sql
+#            - name: DB_USER
+#              value: root
+#            - name: DB_PASS
+#              value: RoboShop@1
+#      restartPolicy: Never
+#  backoffLimit: 4
+#
+#
+#
 
 
 
