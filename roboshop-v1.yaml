@@ -58,7 +58,7 @@ metadata:
   name: catalogue
 data:
   MONGO: "true"
-  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017/catalogue"
+  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/catalogue"
 
 ---
 apiVersion: apps/v1
@@ -114,7 +114,7 @@ spec:
             - name: APP_GIT_URL
               value: https://github.com/roboshop-devops-project-v3/catalogue
             - name: DB_HOST
-              value: mongodb-dev.devopsbymanju.shop
+              value: mongodb-dev.devopsmanju.shop
             - name: SCHEMA_FILE
               value: db/master-data.js
       restartPolicy: Never
@@ -126,8 +126,8 @@ metadata:
   name: user
 data:
   MONGO: "true"
-  MONGO_URL: "mongodb://mongodb-dev.devopsbymanju.shop:27017/users"
-  REDIS_URL: "redis://redis-dev.devopsbymanju.shop:6379"
+  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/users"
+  REDIS_URL: "redis://redis-dev.devopsmanju.shop:6379"
 
 ---
 apiVersion: apps/v1
@@ -168,9 +168,9 @@ spec:
 #metadata:
 #  name: cart
 #data:
-#  CATALOGUE_HOST: "catalogue-dev.devopsbymanju.shop"
+#  CATALOGUE_HOST: "catalogue-dev.devopsmanju.shop"
 #  CATALOGUE_PORT: "8080"
-#  REDIS_HOST: "redis-dev.devopsbymanju.shop"
+#  REDIS_HOST: "redis-dev.devopsmanju.shop"
 #
 #
 
@@ -201,8 +201,8 @@ spec:
 #metadata:
 #  name: shipping
 #data:
-#  CART_ENDPOINT: "cart-dev.devopsbymanju.shop"
-#  DB_HOST: "mysql-dev.devopsbymanju.shop"
+#  CART_ENDPOINT: "cart-dev.devopsmanju.shop"
+#  DB_HOST: "mysql-dev.devopsmanju.shop"
 #
 #---
 #apiVersion: apps/v1
@@ -232,11 +232,11 @@ spec:
 #metadata:
 #  name: payment
 #data:
-#  CART_HOST: "cart-dev.devopsbymanju.shop"
+#  CART_HOST: "cart-dev.devopsmanju.shop"
 #  CART_PORT: "8080"
-#  USER_HOST: "user-dev.devopsbymanju.shop"
+#  USER_HOST: "user-dev.devopsmanju.shop"
 #  USER_PORT: "8080"
-#  AMQP_HOST: "rabbitmq-dev.devopsbymanju.shop"
+#  AMQP_HOST: "rabbitmq-dev.devopsmanju.shop"
 #  AMQP_USER: "roboshop"
 #  AMQP_PASS: "roboshop123"
 
