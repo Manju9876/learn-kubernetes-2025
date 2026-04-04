@@ -51,118 +51,118 @@ spec:
     - port: 80 # service port
       targetPort: 80  # nginx pod port
 
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: catalogue
-data:
-  MONGO: "true"
-  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/catalogue"
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: catalogue
-  labels:
-    component: catalogue
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: catalogue
-  template:
-    metadata:
-      labels:
-        component: catalogue
-    spec:
-      containers:
-        - name: catalogue
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
-          envFrom:
-            - configMapRef:
-                name: catalogue
-
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: catalogue
-spec:
-  type: ClusterIP
-  selector:
-    component: catalogue
-  ports:
-    - port: 8080 # service port
-      targetPort: 8080  # nginx pod port
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: catalogue-schema
-spec:
-  template:
-    spec:
-      containers:
-        - name: schema-load
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
-          env:
-            - name: DB_TYPE
-              value: mongo
-            - name: APP_GIT_URL
-              value: https://github.com/roboshop-devops-project-v3/catalogue
-            - name: DB_HOST
-              value: mongodb-dev.devopsmanju.shop
-            - name: SCHEMA_FILE
-              value: db/master-data.js
-      restartPolicy: Never
-  backoffLimit: 4
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: user
-data:
-  MONGO: "true"
-  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/users"
-  REDIS_URL: "redis://redis-dev.devopsmanju.shop:6379"
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: user
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: user
-  template:
-    metadata:
-      labels:
-        component: user
-    spec:
-      containers:
-        - name: user
-          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
-          envFrom:
-            - configMapRef:
-                name: user
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: user
-spec:
-  type: ClusterIP
-  selector:
-    component: user
-  ports:
-    - port: 8080 # service port
-      targetPort: 8080  # nginx pod port
----
+#---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: catalogue
+#data:
+#  MONGO: "true"
+#  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/catalogue"
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: catalogue
+#  labels:
+#    component: catalogue
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      component: catalogue
+#  template:
+#    metadata:
+#      labels:
+#        component: catalogue
+#    spec:
+#      containers:
+#        - name: catalogue
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
+#          envFrom:
+#            - configMapRef:
+#                name: catalogue
+#
+#
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: catalogue
+#spec:
+#  type: ClusterIP
+#  selector:
+#    component: catalogue
+#  ports:
+#    - port: 8080 # service port
+#      targetPort: 8080  # nginx pod port
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: catalogue-schema
+#spec:
+#  template:
+#    spec:
+#      containers:
+#        - name: schema-load
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+#          env:
+#            - name: DB_TYPE
+#              value: mongo
+#            - name: APP_GIT_URL
+#              value: https://github.com/roboshop-devops-project-v3/catalogue
+#            - name: DB_HOST
+#              value: mongodb-dev.devopsmanju.shop
+#            - name: SCHEMA_FILE
+#              value: db/master-data.js
+#      restartPolicy: Never
+#  backoffLimit: 4
+#---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: user
+#data:
+#  MONGO: "true"
+#  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/users"
+#  REDIS_URL: "redis://redis-dev.devopsmanju.shop:6379"
+#
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: user
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      component: user
+#  template:
+#    metadata:
+#      labels:
+#        component: user
+#    spec:
+#      containers:
+#        - name: user
+#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+#          envFrom:
+#            - configMapRef:
+#                name: user
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: user
+#spec:
+#  type: ClusterIP
+#  selector:
+#    component: user
+#  ports:
+#    - port: 8080 # service port
+#      targetPort: 8080  # nginx pod port
+#---
 #apiVersion: v1
 #kind: ConfigMap
 #metadata:
