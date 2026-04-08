@@ -51,300 +51,300 @@ spec:
     - port: 80 # service port
       targetPort: 80  # nginx pod port
 
-#---
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: catalogue
-#data:
-#  MONGO: "true"
-#  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/catalogue"
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: catalogue
-#  labels:
-#    component: catalogue
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: catalogue
-#  template:
-#    metadata:
-#      labels:
-#        component: catalogue
-#    spec:
-#      containers:
-#        - name: catalogue
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
-#          envFrom:
-#            - configMapRef:
-#                name: catalogue
-#
-#
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: catalogue
-#spec:
-#  type: ClusterIP
-#  selector:
-#    component: catalogue
-#  ports:
-#    - port: 8080 # service port
-#      targetPort: 8080  # nginx pod port
-#---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: catalogue-schema
-#spec:
-#  template:
-#    spec:
-#      containers:
-#        - name: schema-load
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
-#          env:
-#            - name: DB_TYPE
-#              value: mongo
-#            - name: APP_GIT_URL
-#              value: https://github.com/roboshop-devops-project-v3/catalogue
-#            - name: DB_HOST
-#              value: mongodb-dev.devopsmanju.shop
-#            - name: SCHEMA_FILE
-#              value: db/master-data.js
-#      restartPolicy: Never
-#  backoffLimit: 4
-#---
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: user
-#data:
-#  MONGO: "true"
-#  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/users"
-#  REDIS_URL: "redis://redis-dev.devopsmanju.shop:6379"
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: user
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: user
-#  template:
-#    metadata:
-#      labels:
-#        component: user
-#    spec:
-#      containers:
-#        - name: user
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
-#          envFrom:
-#            - configMapRef:
-#                name: user
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: user
-#spec:
-#  type: ClusterIP
-#  selector:
-#    component: user
-#  ports:
-#    - port: 8080 # service port
-#      targetPort: 8080  # nginx pod port
-#---
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: cart
-#data:
-#  CATALOGUE_HOST: "catalogue-dev.devopsmanju.shop"
-#  CATALOGUE_PORT: "8080"
-#  REDIS_HOST: "redis-dev.devopsmanju.shop"
-#
-#
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/catalogue"
 
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: cart
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: cart
-#  template:
-#    metadata:
-#      labels:
-#        component: cart
-#    spec:
-#      containers:
-#        - name: catalogue
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
-#          envFrom:
-#            - configMapRef:
-#                name: cart
-#---
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: shipping
-#data:
-#  CART_ENDPOINT: "cart-dev.devopsmanju.shop"
-#  DB_HOST: "mysql-dev.devopsmanju.shop"
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: shipping
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: shipping
-#  template:
-#    metadata:
-#      labels:
-#        component: shipping
-#    spec:
-#      containers:
-#        - name: shipping
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping
-#          envFrom:
-#            - configMapRef:
-#                name: shipping
-#
-#---
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: payment
-#data:
-#  CART_HOST: "cart-dev.devopsmanju.shop"
-#  CART_PORT: "8080"
-#  USER_HOST: "user-dev.devopsmanju.shop"
-#  USER_PORT: "8080"
-#  AMQP_HOST: "rabbitmq-dev.devopsmanju.shop"
-#  AMQP_USER: "roboshop"
-#  AMQP_PASS: "roboshop123"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue
+  labels:
+    component: catalogue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: catalogue
+  template:
+    metadata:
+      labels:
+        component: catalogue
+    spec:
+      containers:
+        - name: catalogue
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
+          envFrom:
+            - configMapRef:
+                name: catalogue
 
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: payment
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      component: payment
-#  template:
-#    metadata:
-#      labels:
-#        component: payment
-#    spec:
-#      containers:
-#        - name: payment
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/payment
-#          envFrom:
-#            - configMapRef:
-#                name: payment
-#---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: shipping-app-user
-#spec:
-#  template:
-#    spec:
-#      containers:
-#        - name: app-user
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
-#          env:
-#            - name: DB_TYPE
-#              value: mysql
-#            - name: APP_GIT_URL
-#              value: https://github.com/roboshop-devops-project-v3/shipping
-#            - name: DB_HOST
-#              value: mysql-dev.rdevopsb83.online
-#            - name: SCHEMA_FILE
-#              value: db/app-user.sql
-#            - name: DB_USER
-#              value: root
-#            - name: DB_PASS
-#              value: RoboShop@1
-#      restartPolicy: Never
-#  backoffLimit: 4
-#
-#---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: shipping-schema-load
-#spec:
-#  template:
-#    spec:
-#      containers:
-#        - name: schema-load
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
-#          env:
-#            - name: DB_TYPE
-#              value: mysql
-#            - name: APP_GIT_URL
-#              value: https://github.com/roboshop-devops-project-v3/shipping
-#            - name: DB_HOST
-#              value: mysql-dev.rdevopsb83.online
-#            - name: SCHEMA_FILE
-#              value: db/schema.sql
-#            - name: DB_USER
-#              value: root
-#            - name: DB_PASS
-#              value: RoboShop@1
-#      restartPolicy: Never
-#  backoffLimit: 4
-#
-#---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: shipping-master-data
-#spec:
-#  template:
-#    spec:
-#      containers:
-#        - name: master-data
-#          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
-#          env:
-#            - name: DB_TYPE
-#              value: mysql
-#            - name: APP_GIT_URL
-#              value: https://github.com/roboshop-devops-project-v3/shipping
-#            - name: DB_HOST
-#              value: mysql-dev.rdevopsb83.online
-#            - name: SCHEMA_FILE
-#              value: db/master-data.sql
-#            - name: DB_USER
-#              value: root
-#            - name: DB_PASS
-#              value: RoboShop@1
-#      restartPolicy: Never
-#  backoffLimit: 4
-#
-#
-#
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+spec:
+  type: ClusterIP
+  selector:
+    component: catalogue
+  ports:
+    - port: 8080 # service port
+      targetPort: 8080  # nginx pod port
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: catalogue-schema
+spec:
+  template:
+    spec:
+      containers:
+        - name: schema-load
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+          env:
+            - name: DB_TYPE
+              value: mongo
+            - name: APP_GIT_URL
+              value: https://github.com/roboshop-devops-project-v3/catalogue
+            - name: DB_HOST
+              value: mongodb-dev.devopsmanju.shop
+            - name: SCHEMA_FILE
+              value: db/master-data.js
+      restartPolicy: Never
+  backoffLimit: 4
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb-dev.devopsmanju.shop:27017/users"
+  REDIS_URL: "redis://redis-dev.devopsmanju.shop:6379"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: user
+  template:
+    metadata:
+      labels:
+        component: user
+    spec:
+      containers:
+        - name: user
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+          envFrom:
+            - configMapRef:
+                name: user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  type: ClusterIP
+  selector:
+    component: user
+  ports:
+    - port: 8080 # service port
+      targetPort: 8080  # nginx pod port
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cart
+data:
+  CATALOGUE_HOST: "catalogue-dev.devopsmanju.shop"
+  CATALOGUE_PORT: "8080"
+  REDIS_HOST: "redis-dev.devopsmanju.shop"
+
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: cart
+  template:
+    metadata:
+      labels:
+        component: cart
+    spec:
+      containers:
+        - name: catalogue
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+          envFrom:
+            - configMapRef:
+                name: cart
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shipping
+data:
+  CART_ENDPOINT: "cart-dev.devopsmanju.shop"
+  DB_HOST: "mysql-dev.devopsmanju.shop"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: shipping
+  template:
+    metadata:
+      labels:
+        component: shipping
+    spec:
+      containers:
+        - name: shipping
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping
+          envFrom:
+            - configMapRef:
+                name: shipping
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment
+data:
+  CART_HOST: "cart-dev.devopsmanju.shop"
+  CART_PORT: "8080"
+  USER_HOST: "user-dev.devopsmanju.shop"
+  USER_PORT: "8080"
+  AMQP_HOST: "rabbitmq-dev.devopsmanju.shop"
+  AMQP_USER: "roboshop"
+  AMQP_PASS: "roboshop123"
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: payment
+  template:
+    metadata:
+      labels:
+        component: payment
+    spec:
+      containers:
+        - name: payment
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/payment
+          envFrom:
+            - configMapRef:
+                name: payment
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shipping-app-user
+spec:
+  template:
+    spec:
+      containers:
+        - name: app-user
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+          env:
+            - name: DB_TYPE
+              value: mysql
+            - name: APP_GIT_URL
+              value: https://github.com/roboshop-devops-project-v3/shipping
+            - name: DB_HOST
+              value: mysql-dev.rdevopsb83.online
+            - name: SCHEMA_FILE
+              value: db/app-user.sql
+            - name: DB_USER
+              value: root
+            - name: DB_PASS
+              value: RoboShop@1
+      restartPolicy: Never
+  backoffLimit: 4
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shipping-schema-load
+spec:
+  template:
+    spec:
+      containers:
+        - name: schema-load
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+          env:
+            - name: DB_TYPE
+              value: mysql
+            - name: APP_GIT_URL
+              value: https://github.com/roboshop-devops-project-v3/shipping
+            - name: DB_HOST
+              value: mysql-dev.rdevopsb83.online
+            - name: SCHEMA_FILE
+              value: db/schema.sql
+            - name: DB_USER
+              value: root
+            - name: DB_PASS
+              value: RoboShop@1
+      restartPolicy: Never
+  backoffLimit: 4
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shipping-master-data
+spec:
+  template:
+    spec:
+      containers:
+        - name: master-data
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+          env:
+            - name: DB_TYPE
+              value: mysql
+            - name: APP_GIT_URL
+              value: https://github.com/roboshop-devops-project-v3/shipping
+            - name: DB_HOST
+              value: mysql-dev.rdevopsb83.online
+            - name: SCHEMA_FILE
+              value: db/master-data.sql
+            - name: DB_USER
+              value: root
+            - name: DB_PASS
+              value: RoboShop@1
+      restartPolicy: Never
+  backoffLimit: 4
+
+
+
 
 
 
