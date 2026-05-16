@@ -9,34 +9,23 @@ terraform {
   }
 }
 
-resource "aws_eks_cluster" "example" {
-  name = "example"
+resource "aws_eks_cluster" "main" {
+  name = "wmp-eks-cluster"
 
-  access_config {
-    authentication_mode = "API"
-  }
-
-  role_arn = aws_iam_role.cluster.arn
+  role_arn = aws_iam_role.main.arn
   version  = "1.31"
 
   vpc_config {
-    subnet_ids = [
-      aws_subnet.az1.id,
-      aws_subnet.az2.id,
-      aws_subnet.az3.id,
-    ]
+    subnet_ids = ["subnet-005ab3b734b47f3f7","subnet-068ce337c8cfe6696"]
   }
 
-  # Ensure that IAM Role permissions are created before and deleted
-  # after EKS Cluster handling. Otherwise, EKS will not be able to
-  # properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
     aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
   ]
 }
 
 resource "aws_iam_role" "main" {
-  name = "wmp-cluster"
+  name = "wmp-eks-cluster-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
