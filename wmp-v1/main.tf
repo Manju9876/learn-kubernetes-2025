@@ -81,7 +81,7 @@ resource "aws_iam_role_policy_attachment" "main-AmazonEC2ContainerRegistryReadOn
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
   node_group_name = "wmp-node-group"
-  node_role_arn   = aws_iam_role.main.arn
+  node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = ["subnet-005ab3b734b47f3f7","subnet-068ce337c8cfe6696"]
 
   scaling_config {
