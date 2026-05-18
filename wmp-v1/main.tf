@@ -10,10 +10,10 @@ terraform {
 }
 
 resource "aws_eks_cluster" "main" {
-  name = "wmp-eks-cluster"
+  name = "main"
 
-  role_arn = aws_iam_role.main.arn
-  version  = "1.31"
+  role_arn = aws_iam_role.cluster.arn
+  version  = "1.35"
 
   vpc_config {
     subnet_ids = ["subnet-005ab3b734b47f3f7","subnet-068ce337c8cfe6696"]
@@ -24,8 +24,8 @@ resource "aws_eks_cluster" "main" {
   ]
 }
 
-resource "aws_iam_role" "main" {
-  name = "wmp-eks-cluster-role"
+resource "aws_iam_role" "cluster" {
+  name = "eks-cluster-main"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -45,11 +45,11 @@ resource "aws_iam_role" "main" {
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.main.name
+  role       = aws_iam_role.cluster.name
 }
 
 resource "aws_iam_role" "node" {
-  name = "eks-node-group-role"
+  name = "eks-node-group-example"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -80,9 +80,9 @@ resource "aws_iam_role_policy_attachment" "main-AmazonEC2ContainerRegistryReadOn
 
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
-  node_group_name = "wmp-node-group"
+  node_group_name = "example"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = ["subnet-005ab3b734b47f3f7","subnet-068ce337c8cfe6696"]
+  subnet_ids      = ["subnet-05fc554f21ead9d55", "subnet-0e99e91ba5863b57b"]
 
   scaling_config {
     desired_size = 1
@@ -91,8 +91,8 @@ resource "aws_eks_node_group" "main" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.main-AmazonEC2ContainerRegistryReadOnly,
-    aws_iam_role_policy_attachment.main-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.main-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.main-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.main-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
