@@ -6,3 +6,34 @@ spec:
   containers:
     - name: frontend
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/frontend
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: auth-service
+spec:
+  containers:
+    - name: auth-service
+      image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/auth-service
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: portfolio-service
+spec:
+  containers:
+    - name: portfolio-service
+      image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/portfolio-service
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: analytics-service
+spec:
+  containers:
+    - name: analytics-service
+      image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/analytics-service
