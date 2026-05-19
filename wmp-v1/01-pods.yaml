@@ -8,6 +8,7 @@ spec:
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/frontend
 
 ---
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -18,20 +19,27 @@ spec:
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/auth-service
       env:
         - name: DB_HOST
-          value: {{ aws_rds_endpoint_address }}
-        - name: DEMO_FAREWELL
-          value: "Such a sweet sorrow"
-          Environment=DB_HOST={{ aws_rds_endpoint_address }}
-          Environment=DB_PORT=5432
-          Environment=DB_USER=auth_svc_user
-          Environment=DB_PASSWORD=localdev123
-          Environment=DB_NAME=wmp
-          Environment=DB_SCHEMA=auth_schema
-          Environment=SERVER_PORT=8081
-          Environment=JWT_SECRET=myDefaultSuperSecretKeyThatIsAtLeast256BitsLongForHS256Algorithm
-          Environment=PORTFOLIO_SERVICE_URL=http://portfolio-service-dev.devopsbymanju.shop:8080
+          value: "wmp-dev.c4j048gm8kgc.us-east-1.rds.amazonaws.com"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "auth_svc_user"
+        - name: DB_PASSWORD
+          value: "localdev123"
+        - name: DB_NAME
+          value: "wmp"
+        - name: DB_SCHEMA
+          value: "auth_schema"
+        - name: SERVER_PORT
+          value: "8081"
+        - name: JWT_SECRET
+          value: "myDefaultSuperSecretKeyThatIsAtLeast256BitsLongForHS256Algorithm"
+        - name: PORTFOLIO_SERVICE_URL
+          value: "http://portfolio-service-dev.devopsbymanju.shop:8080"
+
 
 ---
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -40,6 +48,19 @@ spec:
   containers:
     - name: portfolio-service
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/portfolio-service
+      env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://wmp-dev.c4j048gm8kgc.us-east-1.rds.amazonaws.com:5432/wmp?currentSchema=portfolio_schema"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "portfolio_svc_user"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "localdev123"
+        - name: JWT_SECRET
+          value: "myDefaultSuperSecretKeyThatIsAtLeast256BitsLongForHS256Algorithm"
+        - name: SERVER_PORT
+          value: "8080"
 
 ---
 
@@ -51,3 +72,12 @@ spec:
   containers:
     - name: analytics-service
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/analytics-service
+      env:
+        - name: DATABASE_URL
+          value: "postgresql+asyncpg://analytics_svc_user:localdev123wmp-dev.c4j048gm8kgc.us-east-1.rds.amazonaws.com:5432/wmp"
+        - name: DB_SCHEMA
+          value: "analytics_schema"
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: ENVIRONMENT
+          value: "production"
