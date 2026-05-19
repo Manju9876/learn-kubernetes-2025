@@ -59,7 +59,7 @@ spec:
     - name: portfolio-service
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/portfolio-service
       envFrom:
-        - conFigMapRef:
+        - configMapRef:
             name: portfolio-service
 
 ---
@@ -82,5 +82,5 @@ spec:
     - name: analytics-service
       image: 200915316788.dkr.ecr.us-east-1.amazonaws.com/analytics-service
       envFrom:
-        - conFigMapRef:
+        - configMapRef:
             name: analytics-service
