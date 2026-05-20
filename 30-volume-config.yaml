@@ -22,3 +22,7 @@ spec:
     - name: foo
       configMap:
         name: game-demo
+
+# kube internally stores the values as files in /etc/foo
+#  player_initial_lives → file
+#  ui_properties_file_name → file
