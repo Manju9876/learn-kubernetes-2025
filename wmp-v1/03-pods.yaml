@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: frontend
-  label:
+  labels:
     appName: frontend
 spec:
   containers:
