@@ -99,7 +99,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: frontend
 spec:
   type: LoadBalancer
   selector:
@@ -112,36 +112,36 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: auth-service
 spec:
   selector:
     appName: auth-service
   ports:
     - protocol: TCP
-      port: 80 #service port
-      targetPort: 9376 #target port
+      port: 8081 #service port
+      targetPort: 8081 #target port
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: portfolio-service
 spec:
   selector:
     appName: portfolio-service
   ports:
     - protocol: TCP
-      port: 80 #service port
-      targetPort: 9376 #target port
+      port: 8080 #service port
+      targetPort: 8080 #target port
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: analytics-service
 spec:
   selector:
     appName: analytics-service
   ports:
     - protocol: TCP
-      port: 80 #service port
-      targetPort: 9376 #target port
+      port: 8000 #service port
+      targetPort: 8000 #target port
 ---
