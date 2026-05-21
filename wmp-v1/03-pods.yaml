@@ -76,7 +76,7 @@ kind: ConfigMap
 metadata:
   name: analytics-service
 data:
-  DATABASE_URL: "postgresql+asyncpg://analytics_svc_user:localdev123wmp-dev.c4j048gm8kgc.us-east-1.rds.amazonaws.com:5432/wmp"
+  DATABASE_URL: "postgresql+asyncpg://analytics_svc_user:localdev123@wmp-dev.c4j048gm8kgc.us-east-1.rds.amazonaws.com:5432/wmp"
   DB_SCHEMA: "analytics_schema"
   LOG_LEVEL: "INFO"
   ENVIRONMENT: "production"
