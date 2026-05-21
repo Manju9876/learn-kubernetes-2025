@@ -30,4 +30,5 @@ spec:
     - name: nginx
       image: nginx
 
+# make sure the labels are unique in the above case you get only 2 replicas and a storage-demo-pod because label are same
 
