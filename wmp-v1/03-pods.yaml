@@ -183,4 +183,3 @@ spec:
     - protocol: TCP
       port: 8000 #service port
       targetPort: 8000 #target port
----
