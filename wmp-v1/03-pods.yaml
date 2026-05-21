@@ -32,7 +32,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: auth-service
-  label:
+  labels:
     appName: auth-service
 spec:
   containers:
@@ -60,7 +60,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: portfolio-service
-  label:
+  labels:
     appName: portfolio-service
 spec:
   containers:
@@ -85,7 +85,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: analytics-service
-  label:
+  labels:
     appName: analytics-service
 spec:
   containers:
